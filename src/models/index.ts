@@ -41,8 +41,36 @@ export async function createADocument({
         .doc(`${new Date()}`)
     : collection.doc(`${documentName}`);
   await document.set(data);
-  const newChat = (await document.get()).data();
-  return newChat;
+  const newDocument = (await document.get()).data();
+  return newDocument;
+}
+
+export async function updateADocument({
+  collectionName,
+  documentName,
+  data,
+}: {
+  collectionName: string;
+  documentName: string;
+  data: { [fieldPath: string]: any };
+}): Promise<{ [fieldPath: string]: any }> {
+  const collection = db.collection(`${collectionName}`);
+  const document = collection.doc(`${documentName}`);
+  await document.update(data);
+  const updatedDocuent = (await document.get()).data();
+  return updatedDocuent;
+}
+
+export async function deleteADocument({
+  collectionName,
+  documentName,
+}: {
+  collectionName: string;
+  documentName: string;
+}): Promise<void> {
+  const collection = db.collection(`${collectionName}`);
+  const document = collection.doc(`${documentName}`);
+  await document.delete();
 }
 
 export async function getAllDocumentsinCollection({
@@ -64,4 +92,20 @@ export async function getAllDocumentsinCollection({
   const documents = [];
   snapshot.forEach((doc) => documents.push(doc.data()));
   return documents;
+}
+
+export async function getSpecificDocuments({
+  collectionName,
+  field,
+  key,
+}: {
+  collectionName: string;
+  field: string;
+  key: any;
+}): Promise<Array<{ [fieldPath: string]: any }> | false> {
+  const collection = db.collection(`${collectionName}`);
+  const snapshot = await collection.where(`${field}`, '==', `${key}`).get();
+  const documents = [];
+  snapshot.forEach((doc) => documents.push(doc.data()));
+  return snapshot.size ? documents : false;
 }
