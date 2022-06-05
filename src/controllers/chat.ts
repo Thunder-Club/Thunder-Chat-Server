@@ -1,16 +1,27 @@
 import * as express from 'express';
+import * as DB from '../models';
+import type { Room, User, Chat } from '../types';
 
 export async function getAllChatInTheRoom(
   req: express.Request,
   res: express.Response,
 ) {
   try {
-    // TODO: Get all chat in the room
-    res.status(200);
-    // TODO: send all chat
-    // res.send(...);
-    res.send('Get all chat in the room');
-    res.end();
+    const roomId = req.params.id;
+    const chatList = await DB.getAllDocumentsinCollection({
+      collectionName: 'rooms',
+      documentName: roomId,
+      subCollectionName: 'chat',
+    });
+    if (chatList) {
+      res.status(200);
+      res.send(chatList);
+      res.end();
+    } else {
+      res.status(404);
+      res.send(`no rooms found with id ${roomId}`);
+      res.end();
+    }
   } catch (error) {
     res.status(500);
     res.send(error);
@@ -20,12 +31,26 @@ export async function getAllChatInTheRoom(
 
 export async function addChat(req: express.Request, res: express.Response) {
   try {
-    // TODO: create a Chat
-    res.status(201);
-    // TODO: send a Chat
-    // res.send(...);
-    res.send('Create a Chat');
-    res.end();
+    const roomId = req.params.id;
+    const chat: Chat = {
+      ...req.body,
+      timestamp: new Date(),
+    };
+    const newChat = await DB.createADocument({
+      collectionName: 'rooms',
+      documentName: roomId,
+      subCollectionName: 'chat',
+      data: chat,
+    });
+    if (newChat) {
+      res.status(200);
+      res.send(newChat);
+      res.end();
+    } else {
+      res.status(404);
+      res.send(`no rooms found with id ${roomId}`);
+      res.end();
+    }
   } catch (error) {
     res.status(500);
     res.send(error);
