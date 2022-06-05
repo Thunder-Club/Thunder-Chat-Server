@@ -6,7 +6,7 @@ const router = express.Router();
 router.get(
   '/',
   (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    res.send('Server is running 🚀');
+    res.send('Thunder Chat Server is running ⚡️');
   },
 );
 
@@ -25,7 +25,7 @@ router.get(
   '**',
   (req: express.Request, res: express.Response, next: express.NextFunction) => {
     res.status(404);
-    res.send('Page Not Found');
+    res.send('❌ Invalid Route');
   },
 );
 
