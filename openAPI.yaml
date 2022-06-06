@@ -1,0 +1,9 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: Thunder Chat
+  description: API Document for Thunder Chat
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:3000/
