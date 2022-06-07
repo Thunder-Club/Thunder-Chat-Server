@@ -6,7 +6,6 @@
   "scripts": {
     "predev": "tsc",
     "prestart": "tsc",
-    "api-docs": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile build/swagger.yaml --type yaml",
     "dev": "nodemon --watch './**/*.ts' --exec 'node --experimental-specifier-resolution=node --loader ts-node/esm' src/index.ts",
     "start": "ts-node dist/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
