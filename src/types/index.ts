@@ -9,7 +9,6 @@ export interface Room {
   roomId: string;
   roomname: string;
   locationLevel: LocationLevel;
-  participantCount: number;
   location: Location;
 }
 

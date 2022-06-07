@@ -2,7 +2,7 @@ import * as express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import * as DB from '../models';
 
-import { getRoom, getRoomWithId, createRoom, getMars } from '../helpers';
+import { getRoom, getThisRoomIdOrNewRoomId, getMars } from '../helpers';
 import type { User } from '../types';
 
 export async function getAllUserInTheRoom(
@@ -57,41 +57,32 @@ export async function getUser(req: express.Request, res: express.Response) {
 
 // TODO
 export async function addUser(req: express.Request, res: express.Response) {
-  res.status(201);
-  res.send('...coming soon!');
-  res.end();
   try {
     const userInfo = req.body;
     const { locationPermit, location } = userInfo;
     let data: User;
     if (!locationPermit) {
       // Go to Mars
-      const Mars = (
-        await getRoom({
-          roomname: 'Mars',
-        })
-      ).roomId;
+      const roomId = (await getMars()).roomId;
       data = {
         ...req.body,
         userId: uuidv4(),
-        roomId: Mars.roomId,
+        roomId,
       };
     } else {
       // Go to Earth
       const room = await getRoom({
         location,
       });
-      // check room is small enough?
-      if (room.participantCount <= 20) {
-        // Small -> lets go with this one
-        data = {
-          ...req.body,
-          userId: uuidv4(),
-          roomId: room.roomId,
-        };
-      } else {
-        // check locationLevel
-      }
+      const roomId = await getThisRoomIdOrNewRoomId({
+        room,
+        newUserLocation: location,
+      });
+      data = {
+        ...req.body,
+        userId: uuidv4(),
+        roomId,
+      };
     }
     // Create User
     const user = await DB.createADocument({
