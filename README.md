@@ -27,4 +27,4 @@ npx firebase emulators:start
 
 ### URL
 
-[https://thunder-chat-server.onrender.com](https://thunder-club-thunder-chat-server.onrender.com)
+https://thunder-club-thunder-chat-server.onrender.com
