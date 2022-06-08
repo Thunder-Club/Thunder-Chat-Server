@@ -5,7 +5,7 @@
 ### Development
 
 ```
-git clone https://github.com/JIHYO-JEON/Thunder-Chat-Server.git
+git clone 
 cd Thunder-Chat-Server
 npm i
 npm run dev
@@ -19,7 +19,7 @@ npx firebase emulators:start
 
 ### API Documentation
 
-- coming soon!
+- [Notion](https://www.notion.so/thunderclub/Backend-fc97536554fe4231aab3c0c42ef67b67)
 
 ### Dashboard
 
