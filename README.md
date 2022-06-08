@@ -23,7 +23,7 @@ npx firebase emulators:start
 
 ### Dashboard
 
-- [render dashboard]([https://dashboard.render.com/web/srv-cachs8rru51kna8auprg/deploys/dep-cad34a7d17c4g42549ng](https://dashboard.render.com/web/srv-cag9e5v9re0unvh9paag/deploys/dep-cag9e7v9re0unvh9padg))
+- [https://dashboard.render.com/web/srv-cachs8rru51kna8auprg/deploys/dep-cad34a7d17c4g42549ng](https://dashboard.render.com/web/srv-cag9e5v9re0unvh9paag/deploys/dep-cag9e7v9re0unvh9padg)
 
 ### URL
 
