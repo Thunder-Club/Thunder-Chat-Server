@@ -59,13 +59,18 @@ export async function getUser(req: express.Request, res: express.Response) {
 export async function addUser(req: express.Request, res: express.Response) {
   try {
     const userInfo = req.body;
-    const { locationPermit, location } = userInfo;
+    const {
+      locationPermit,
+      location,
+      username = `user${Math.floor(Math.random() * 10000)}`,
+    } = userInfo;
     let data: User;
     if (!locationPermit) {
       // Go to Mars
       const roomId = (await getMars()).roomId;
       data = {
         ...req.body,
+        username,
         userId: uuidv4(),
         roomId,
       };
@@ -80,6 +85,7 @@ export async function addUser(req: express.Request, res: express.Response) {
       });
       data = {
         ...req.body,
+        username,
         userId: uuidv4(),
         roomId,
       };
